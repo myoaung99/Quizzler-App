@@ -33,14 +33,14 @@ class QuizzInterface:
 
         true_image = PhotoImage(file="./images/true.png")
         self.true_button = Button(
-            image=true_image, highlightthickness=0, command=self.true_button)
+            image=true_image, highlightthickness=0, command=self.true_button_pressed)
         self.true_button.grid(row=2, column=0)
         # Using image as button
 
         false_image = PhotoImage(file="./images/false.png")
-        self.true_button = Button(
-            image=false_image, highlightthickness=0, command=self.false_button)
-        self.true_button.grid(row=2, column=1)
+        self.false_button = Button(
+            image=false_image, highlightthickness=0, command=self.false_button_pressed)
+        self.false_button.grid(row=2, column=1)
 
         self.get_next_question()
 
@@ -56,22 +56,22 @@ class QuizzInterface:
             q_text = self.quiz.next_question()
             # If u forget () in calling function The App will display function name
             self.canvas.itemconfig(self.canvas_text, text=q_text)
-            # self.button_state('active')
+            self.button_state("active")
 
         else:
             self.canvas.itemconfig(self.canvas_text, text="Out of questoins.")
-            # self.button_state("disabled")
+            self.button_state("disabled")
 
     def button_state(self, state: str):
         self.true_button.config(state=state)
         self.false_button.config(state=state)
 
-    def true_button(self):
+    def true_button_pressed(self):
         # messagebox.showinfo(
         #     title="Result", message=self.quiz.check_answer("true"))
         self.give_feedback(self.quiz.check_answer("True"))
 
-    def false_button(self):
+    def false_button_pressed(self):
         # messagebox.showinfo(
         #     title="Result", message=self.quiz.check_answer("false"))
         self.give_feedback(self.quiz.check_answer("False"))
