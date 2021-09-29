@@ -49,19 +49,22 @@ class QuizzInterface:
 
     def get_next_question(self):
         self.window.after(1000, self.canvas.config(bg="white"))
-
+        self.score_label.config(
+            text=f"Score : {self.quiz.score}")
         if self.quiz.still_has_questions():
 
             q_text = self.quiz.next_question()
             # If u forget () in calling function The App will display function name
             self.canvas.itemconfig(self.canvas_text, text=q_text)
-            self.score_label.config(
-                text=f"Score : {self.quiz.score} / {self.quiz.question_number}")
+            # self.button_state('active')
 
         else:
             self.canvas.itemconfig(self.canvas_text, text="Out of questoins.")
-            self.false_button.config(state="disabled")
-            self.true_button.config(state="disabled")
+            # self.button_state("disabled")
+
+    def button_state(self, state: str):
+        self.true_button.config(state=state)
+        self.false_button.config(state=state)
 
     def true_button(self):
         # messagebox.showinfo(
